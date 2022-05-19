@@ -26,5 +26,5 @@ int main(){
     recvfrom(sock_fd,b1,sizeof(b1), 0,NULL,NULL);
     printf("%s \n",b1);
     
-    return 0;
+    
 }
