@@ -1,0 +1,4 @@
+www.google.com 192.168.0.7
+www.yahoo.com 192.168.0.16
+www.youtube.com 199.223. 232.0
+www.twitter.com 104.244.42.6
