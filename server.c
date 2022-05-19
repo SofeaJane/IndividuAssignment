@@ -24,8 +24,6 @@ int main(){
 	
 	printf("Socket descriptor: %d \n" , sock_fd);
     
-    memset(&server,0, sizeof(server));
-    memset(&client,0, sizeof(client));
     
     server.sin_family=AF_INET;
     server.sin_port=htons(53);
@@ -55,5 +53,5 @@ int main(){
      fclose(fp);
      sendto(sock_fd,b2,sizeof b2,0,(struct sockaddr *)&client,n); 
     }
-    return 0;
+    
 }
