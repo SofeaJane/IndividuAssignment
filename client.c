@@ -6,25 +6,22 @@
 #include<arpa/inet.h>
 #include<netinet/in.h>
 
-int main(){
-    
+int main()
+{
     struct sockaddr_in server,client;
-    int sock_fd,n;
+    int s,n;
     char b1[100],b2[100];
-    
-    sock_fd = socket(AF_INET,SOCK_DGRAM,0);
-    
+
+    s=socket(AF_INET,SOCK_DGRAM,0);
     server.sin_family=AF_INET;
-    server.sin_port=htons(53);
+    server.sin_port=3000;
+
     server.sin_addr.s_addr=inet_addr("192.168.56.108");
-    
     n=sizeof(server);
-    
-    printf("\nEnter domain name: ");
+    printf("\nEnter Domain Name: ");
     scanf("%s",b2);
-    sendto(sock_fd,b2,sizeof(b2),0,(struct sockaddr *)&server,n);
-    recvfrom(sock_fd,b1,sizeof(b1), 0,NULL,NULL);
+
+    sendto(s,b2,sizeof(b2),0,(struct sockaddr *)&server,n);
+    recvfrom(s,b1,sizeof(b1), 0,NULL,NULL);
     printf("%s \n",b1);
-    
-    
-}
+}	
