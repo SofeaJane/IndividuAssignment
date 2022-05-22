@@ -1,4 +1,5 @@
-//server
+// Server Program 
+
 #include<stdio.h>
 #include<sys/stat.h>
 #include<sys/types.h>
@@ -6,27 +7,26 @@
 #include<netinet/in.h>
 #include<arpa/inet.h>
 #include<string.h>
-
-int main()
+main()
 {
     FILE *fp;
     struct sockaddr_in server,client;
-    int s,n;
+    int sock_desc,n;
     char b1[100],b2[100],a[100];
-
-    s=socket(AF_INET,SOCK_DGRAM,0);
+    
+    sock_desc=socket(AF_INET,SOCK_DGRAM,0);
     server.sin_family=AF_INET;
-    server.sin_port=3000;
+    server.sin_port=htons(53);
     server.sin_addr.s_addr=INADDR_ANY;
-
-    bind(s,(struct sockaddr *)&server,sizeof(server));
+    
+    bind(sock_desc,(struct sockaddr *)&server,sizeof(server));
     n=sizeof(client);
-
+    
     while(1)
     {
         strcpy(b2,"");
         fp=fopen("dns.txt","r");
-        recvfrom(s,b1,sizeof b1, 0,(struct sockaddr *)&client,&n);
+        recvfrom(sock_desc,b1,sizeof b1, 0,(struct sockaddr *)&client,&n);
         while(!feof(fp))
        {
            fscanf(fp,"%s",a);
@@ -36,13 +36,14 @@ int main()
                 break;
           }
       }
-
+      
       if(strcmp(b2,"")==0)
      {
            strcpy(b2,"Not found...");
       }
-
+      
      fclose(fp);
-     sendto(s,b2,sizeof b2,0,(struct sockaddr *)&client,n); 
+     
+     sendto(sock_desc,b2,sizeof b2,0,(struct sockaddr *)&client,n); 
     }
 }
